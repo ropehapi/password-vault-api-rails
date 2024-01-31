@@ -5,6 +5,10 @@ class AccountsController < ApplicationController
   def index
     @accounts = Account.all
 
+    if params[:name].present?
+      @accounts = @accounts.where('name LIKE ?', "%#{params[:name]}%")
+    end
+
     render json: @accounts
   end
 
